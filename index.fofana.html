@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Accueil élégant pour l'invité X" />
+  <title>Bienvenue, X</title>
+  <style>
+    :root {
+      --bg: #0b3f31;
+      --text: #ffffff;
+      --gold: #d7b56d;
+      --gold-soft: rgba(215, 181, 109, 0.22);
+      --gold-faint: rgba(215, 181, 109, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    main {
+      width: min(92vw, 980px);
+      padding: clamp(24px, 5vw, 56px);
+      text-align: center;
+      position: relative;
+      isolation: isolate;
+    }
+
+    .ornament {
+      width: min(280px, 52vw);
+      height: 22px;
+      margin: 0 auto 28px;
+      position: relative;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fade-up 1s 0.15s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    .ornament::before,
+    .ornament::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: calc(50% - 14px);
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0.9;
+    }
+
+    .ornament::before {
+      left: 0;
+      transform-origin: right center;
+      animation: line-grow-left 1.2s 0.6s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+    }
+
+    .ornament::after {
+      right: 0;
+      transform-origin: left center;
+      animation: line-grow-right 1.2s 0.6s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+    }
+
+    .ornament span {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--gold);
+      transform: translate(-50%, -50%) scale(0.2);
+      box-shadow: 0 0 0 0 var(--gold-soft);
+      animation:
+        dot-in 0.9s 0.55s cubic-bezier(0.19, 1, 0.22, 1) forwards,
+        dot-glow 3.8s 2.1s ease-in-out infinite;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Palatino, Georgia, serif;
+      font-size: clamp(3rem, 9vw, 7rem);
+      font-weight: 600;
+      line-height: 1.06;
+      letter-spacing: 0.02em;
+      text-wrap: balance;
+      display: inline-flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: baseline;
+      gap: 0.24em;
+      animation: headline-emphasis 4.8s 2.4s ease-in-out infinite;
+      will-change: transform, text-shadow;
+    }
+
+    .segment {
+      display: inline-flex;
+      overflow: visible;
+      white-space: pre;
+    }
+
+    .name {
+      color: var(--gold);
+      text-shadow: 0 0 0 transparent;
+    }
+
+    .char {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(20px) scale(0.985);
+      filter: blur(10px);
+      animation: char-in 900ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+      will-change: transform, opacity, filter;
+    }
+
+    .name .char {
+      text-shadow: 0 0 0 transparent;
+      animation-name: char-in, gold-breathe;
+      animation-duration: 900ms, 5.2s;
+      animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1), ease-in-out;
+      animation-fill-mode: forwards, both;
+      animation-iteration-count: 1, infinite;
+    }
+
+    .accent-line {
+      width: min(240px, 42vw);
+      height: 1px;
+      margin: 26px auto 0;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity: 0;
+      transform: scaleX(0.2);
+      transform-origin: center;
+      animation:
+        line-in 1.1s 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards,
+        line-shimmer 4.6s 2.5s ease-in-out infinite;
+    }
+
+    @keyframes fade-up {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes line-grow-left {
+      from {
+        transform: scaleX(0);
+      }
+      to {
+        transform: scaleX(1);
+      }
+    }
+
+    @keyframes line-grow-right {
+      from {
+        transform: scaleX(0);
+      }
+      to {
+        transform: scaleX(1);
+      }
+    }
+
+    @keyframes dot-in {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.2);
+      }
+      100% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+    }
+
+    @keyframes dot-glow {
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 var(--gold-soft);
+      }
+      50% {
+        box-shadow: 0 0 0 10px rgba(215, 181, 109, 0);
+      }
+    }
+
+    @keyframes char-in {
+      0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.985);
+        filter: blur(10px);
+      }
+      65% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes headline-emphasis {
+      0%,
+      100% {
+        transform: translateY(0) scale(1);
+        text-shadow: 0 0 0 transparent;
+      }
+      45% {
+        transform: translateY(-1px) scale(1.01);
+        text-shadow: 0 0 22px rgba(255, 255, 255, 0.06), 0 0 30px rgba(215, 181, 109, 0.08);
+      }
+      70% {
+        transform: translateY(0) scale(1.005);
+        text-shadow: 0 0 12px rgba(215, 181, 109, 0.05);
+      }
+    }
+
+    @keyframes gold-breathe {
+      0%,
+      100% {
+        text-shadow: 0 0 0 transparent;
+      }
+      45% {
+        text-shadow: 0 0 14px rgba(215, 181, 109, 0.18), 0 0 24px rgba(215, 181, 109, 0.12);
+      }
+      75% {
+        text-shadow: 0 0 7px rgba(215, 181, 109, 0.1);
+      }
+    }
+
+    @keyframes line-in {
+      from {
+        opacity: 0;
+        transform: scaleX(0.2);
+      }
+      to {
+        opacity: 1;
+        transform: scaleX(1);
+      }
+    }
+
+    @keyframes line-shimmer {
+      0%,
+      100% {
+        opacity: 0.88;
+        filter: brightness(1);
+      }
+      50% {
+        opacity: 1;
+        filter: brightness(1.12);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+
+      .ornament,
+      .accent-line,
+      .char {
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="ornament" aria-hidden="true"><span></span></div>
+    <h1 aria-label="Bienvenue, X">
+      <span class="segment">Bienvenue</span>
+      <span class="segment name">FAMILLE FOFANA</span>
+    </h1>
+    <div class="accent-line" aria-hidden="true"></div>
+  </main>
+
+  <script>
+    (function () {
+      var segments = document.querySelectorAll('.segment');
+      var baseDelay = 280;
+
+      segments.forEach(function (segment, segmentIndex) {
+        var text = segment.textContent;
+        var isName = segment.classList.contains('name');
+        segment.textContent = '';
+
+        Array.from(text).forEach(function (character, charIndex) {
+          var span = document.createElement('span');
+          span.className = 'char';
+          if (character === ' ') {
+            span.innerHTML = '&nbsp;';
+          } else {
+            span.textContent = character;
+          }
+          span.setAttribute('aria-hidden', 'true');
+          var stagger = baseDelay + (charIndex * 75) + (segmentIndex * 220);
+          span.style.animationDelay = stagger + 'ms, ' + (2200 + charIndex * 80) + 'ms';
+          if (!isName) {
+            span.style.animationDelay = stagger + 'ms';
+          }
+          segment.appendChild(span);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
